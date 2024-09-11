@@ -1,21 +1,22 @@
-import { UserButton, useUser } from '@clerk/clerk-react'
+import { SignInButton, UserButton, useUser } from '@clerk/clerk-react'
+import { Button } from './ui/button'
 import logo from '../assets/logo.svg'
 function Header() {
     const { isSignedIn } = useUser()
   return (
-    <div className=' flex'>
+    <div className='flex justify-between items-center shadow-sm p-5'>
         <img src={logo} alt="" width={170} height={150} />
-        <ul>
-            <li>Home</li>
-            <li>New</li>
-            <li>Preowned</li>
-            <li>Contact</li>
+        <ul className='hidden md:flex gap-16'>
+            <li className='font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Home</li>
+            <li className='font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>New</li>
+            <li className='font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Preowned</li>
+            <li className='font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Contact</li>
         </ul>
         {isSignedIn ? 
-        <div>
+        <div className='flex justify-between gap-5'>
             <UserButton/>
-            <button>Submit Listing...</button>
-        </div> : <button>Submit Listing...</button>
+            <button>Submit Listing</button>
+        </div> : <SignInButton mode='modal' signUpForceRedirectUrl='/'><Button>Sign in</Button></SignInButton> 
         }
     </div>
   )
