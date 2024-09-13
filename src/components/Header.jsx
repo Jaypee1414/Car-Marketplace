@@ -2,7 +2,7 @@ import { SignInButton, UserButton, useUser } from '@clerk/clerk-react'
 import { Button } from './ui/button'
 import logo from '../assets/logo.svg'
 function Header() {
-    const { isSignedIn } = useUser()
+    const { user,isSignedIn } = useUser()
   return (
     <div className='flex justify-between items-center shadow-sm p-5'>
         <img src={logo} alt="" width={170} height={150} />
@@ -15,8 +15,8 @@ function Header() {
         {isSignedIn ? 
         <div className='flex justify-between gap-5'>
             <UserButton/>
-            <button>Submit Listing</button>
-        </div> : <SignInButton mode='modal' signUpForceRedirectUrl='/'><Button>Sign in</Button></SignInButton> 
+            <Button>Submit Listing</Button>
+        </div> : <Button>Sign in</Button>
         }
     </div>
   )
