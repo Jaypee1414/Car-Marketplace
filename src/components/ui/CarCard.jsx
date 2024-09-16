@@ -6,12 +6,12 @@ import { IoLogoModelS } from "react-icons/io";
 import { MdOpenInNew } from "react-icons/md";
 function CarCard({ Car }) {
   return (
-    <div className=' hover:shadow-md cursor-pointer rounded-b-xl'>
+    <div className=' hover:shadow-lg cursor-pointer rounded-b-xl'>
       <img src={Car.image} alt="" width={300} height={250} className='rounded-t-xl mt-10'/>
       <div className='p-4'>
         <h2 className='font-bold text-sm md:text-lg mb-2'>{Car.name}</h2>
         <Separator className='border-2'/>
-        <div className='grid grid-rows-3 md:grid-cols-3 mt-5 mb-5'>
+        <div className='grid grid-rows-3 sm:grid-rows-none md:grid-cols-3 mt-5 mb-5'>
             <div className="flex flex-col item-center">
                 <TbManualGearboxFilled className='text-xl md:text-2xl'/>   
                 <h4>{Car.gearType}</h4>

@@ -7,7 +7,6 @@ import {
     CarouselNext,
     CarouselPrevious,
   } from "@/components/ui/carousel"
-  import { TbManualGearboxFilled } from "react-icons/tb";
 function CarList() {
   return (
     <div>
@@ -16,7 +15,7 @@ function CarList() {
         <Carousel>
              <CarouselContent>
                 {CarListFaker.carList.map((Car , index) => (
-                <CarouselItem className="basis-1/2 md:basis-1/4"><CarCard key={index} Car={Car}/></CarouselItem>
+                <CarouselItem className="basis-1/2 md:basis-1/4" key={index}><CarCard Car={Car}/></CarouselItem>
                 ))}
             </CarouselContent>
             <CarouselPrevious />
