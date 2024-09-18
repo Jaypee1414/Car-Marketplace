@@ -6,16 +6,16 @@ import {
     SelectValue,
   } from "@/components/ui/select"
   
-function DropdownField({item}) {
+function DropdownField({item, handleInput}) {
   return (
     <div>
-    <Select>
+    <Select onValueChange={(value) => handleInput(item.name, value)}>
         <SelectTrigger className="w-full">
             <SelectValue placeholder={item.label} />
         </SelectTrigger>
         <SelectContent>  
             {item.options.map((item, index) => (
-                <SelectItem value="dark" key={index}>{item}</SelectItem>
+                <SelectItem value={item} key={index}>{item}</SelectItem>
             ))}
             <SelectItem value="system">System</SelectItem>
         </SelectContent>
