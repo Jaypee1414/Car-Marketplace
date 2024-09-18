@@ -5,6 +5,7 @@ import DropdownField from "./components/DropdownField"
 import { Separator } from "@radix-ui/react-select"
 import { Checkbox } from "@/components/ui/checkbox"
 import features from "@/shared/features"
+import { Button } from "@/components/ui/button"
 function CarFrom() {
     
   return (
@@ -33,6 +34,13 @@ function CarFrom() {
                                 <Checkbox /> {item.name}
                             </div>
                         ))}
+                    </div>
+                </div>
+                <Separator className='border mt-10 mb-10'/>
+                <div>
+                    <h2 className="font-medium text-lg mb-6">Car Image</h2>
+                    <div className="mt10 flex justify-end">
+                        <Button>Submit</Button>
                     </div>
                 </div>
             </form>

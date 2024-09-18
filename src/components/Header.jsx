@@ -1,6 +1,7 @@
 import { UserButton, useUser } from '@clerk/clerk-react'
 import { Button } from './ui/button'
 import logo from '../assets/logo.svg'
+import { Link } from 'react-router-dom'
 function Header() {
     const {isSignedIn } = useUser()
   return (
@@ -15,8 +16,10 @@ function Header() {
         {isSignedIn ? 
         <div className='flex justify-between px-6 gap-1 md:gap-5'>
             <UserButton/>
-            <Button>Submit Listing</Button>
-        </div> : <Button>Sign in</Button>
+            <Link to={'/profile'}>
+              <Button>Submit Listing</Button>
+            </Link>
+        </div> : <Link to={'/profile'}><Button>Submit Listing</Button></Link>
         }
     </div>
   )
