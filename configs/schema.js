@@ -1,15 +1,16 @@
 import { pgTable, serial,varchar } from "drizzle-orm/pg-core";
 
+
 // create table
 export const carListing = pgTable('carList',{
-    id: serial('id').primaryKey,
+    id: serial('id').primaryKey(),
     listingTitle: varchar('listingTitle').notNull(), // not null -> required
     tagline: varchar('tagline'), //null -> not required
     originalPrice: varchar('originalPrice'),
     sellingPrice: varchar('sellingPrice').notNull(),
     category: varchar('category').notNull(),
     condition: varchar('condition').notNull(),
-    make: varchar('tagline').notNull(),
+    make: varchar('make').notNull(),
     model: varchar('model').notNull(),
     year: varchar('year').notNull(),
     driveType: varchar('driveType').notNull(),
