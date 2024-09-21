@@ -7,9 +7,12 @@ import { Checkbox } from "@/components/ui/checkbox"
 import features from "@/shared/features"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { db } from "./../../../configs/index"
+import { carListing } from "../../../configs/schema"
 function CarFrom() {
 
     const [formData, setFormData] = useState([])
+    const [feartures, setFeatures] = useState({})
 
     const handleInput = (name, value) => {
         setFormData((prevData) => ({
@@ -19,9 +22,29 @@ function CarFrom() {
         )
         console.log(name,":",value)
     }
-    function onSubmit(e){
+
+    const handlefeatures = (name, value) => {
+        setFeatures((prevData) => ({
+            ...prevData,
+            [name] : value
+        })
+        )
+        console.log(name,":",value)
+    }
+    async function onSubmit(e){
         e.preventDefault()
         console.log(formData)
+
+        try {
+            const reuslt = await db.insert(carListing).values({
+                ...formData,
+                features: feartures
+            })
+            console.log("Data is save")
+        } catch (e) {
+            console.log("Data is not Error")   
+        }
+        
     }
     
   return (
@@ -47,7 +70,7 @@ function CarFrom() {
                     <div className="grid grid-cols-4 gap-5">
                         {features.features.map((item,index)=>(
                             <div key={index}>
-                                <Checkbox  onCheckedChange={(value)=> handleInput(item.name,value)} />{item.name}
+                                <Checkbox  onCheckedChange={(value)=> handlefeatures(item.name,value)} />{item.name}
                             </div>
                         ))}
                     </div>
