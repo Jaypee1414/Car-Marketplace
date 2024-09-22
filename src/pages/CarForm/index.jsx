@@ -66,6 +66,7 @@ function CarFrom() {
                     </div>
                 </div>
                 <Separator className='border mt-10 mb-10'/>
+                <UploadImage/>
                 <div>
                     <h2 className="font-medium text-lg mb-6">Features</h2>
                     <div className="grid grid-cols-4 gap-5">
@@ -83,7 +84,6 @@ function CarFrom() {
                     </div>
                 </div>
             </form>
-            <UploadImage/>
         </div>
     </div>
   )
