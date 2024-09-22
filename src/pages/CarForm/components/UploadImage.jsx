@@ -21,13 +21,6 @@ function UploadImage() {
                     <h2 className='text-lg item-center text-primary'>+</h2>
                 </div>
             </label>
-            {uploadImages.map((data,index)=>{
-                    return(
-                        <div key={index}>
-                        {data.name}
-                    </div>
-                    )
-                })}
             <input type="file" multiple={true} id='upload-images' className='opacity-0' onChange={handleSubmitImages}/>
         </div>        
     </div>
