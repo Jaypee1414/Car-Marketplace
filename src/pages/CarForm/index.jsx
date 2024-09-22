@@ -2,6 +2,7 @@ import Header from "@/components/Header"
 import InputField from "./components/InputField"
 import carDetails from "@/shared/carDetails"
 import DropdownField from "./components/DropdownField"
+import UploadImage from "./components/UploadImage"
 import { Separator } from "@radix-ui/react-select"
 import { Checkbox } from "@/components/ui/checkbox"
 import features from "@/shared/features"
@@ -76,8 +77,8 @@ function CarFrom() {
                     </div>
                 </div>
                 <Separator className='border mt-10 mb-10'/>
+                <UploadImage/>
                 <div>
-                    <h2 className="font-medium text-lg mb-6">Car Image</h2>
                     <div className="mt10 flex justify-end">
                         <Button>Submit</Button>
                     </div>
