@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { IoCloseCircle } from "react-icons/io5";
 
 function UploadImage() {
     const [uploadImages, setUploadImages] = useState([])
@@ -7,15 +8,28 @@ function UploadImage() {
         const image = event.target.files
         
         for (let index = 0; index < image.length; index++) {
-            const file =image[index]
+            const file = image[index]
             setUploadImages((prevdata)=>[...prevdata,file])
         }
+    }
+
+    const removeItem = (img) => {
+        const result = uploadImages.filter((item) => {
+            return item != img
+        })
+        setUploadImages(result)
     }
 
   return (
     <div>
         <h2 className="font-medium text-lg mb-6">Car Image</h2>
-        <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6'>
+        <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2'>
+            {uploadImages.map((img,index) => (
+            <div key={index}>
+                <IoCloseCircle className='absolute m-3 cursor-pointer text-white' onClick={() => removeItem(img)}/>
+                <img src={URL.createObjectURL(img)} alt="car image" className='w-full object-cover rounded-lg hover:shadow-md' />
+            </div>
+            ))}
             <label htmlFor='upload-images'>
                 <div className='flex justify-center items-center border rounded-lg border-dotted border-primary bg-blue-100 cursor-pointer hover:shadow-md p-10'>
                     <h2 className='text-lg item-center text-primary'>+</h2>
