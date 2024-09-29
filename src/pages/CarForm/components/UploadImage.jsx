@@ -1,3 +1,5 @@
+import { storage } from '../../../../configs/firebaseConfig';
+import { ref, uploadBytes } from 'firebase/storage';
 import React, { useState } from 'react'
 import { IoCloseCircle } from "react-icons/io5";
 
@@ -20,6 +22,19 @@ function UploadImage() {
         setUploadImages(result)
     }
 
+    const UploadImage = () => {
+        uploadImages.forEach((image) => {
+            const filename = Date.now + 'jpeg'
+            const storageRef = ref(storage,'car-marketplace/' + filename)
+            const metaData ={
+                contentType: 'image/jpeg'
+            }
+            uploadBytes(storageRef,image,metaData).then((snapshot) => {
+                console.log('Upload Image Successful')
+            })
+        })
+    }
+
   return (
     <div>
         <h2 className="font-medium text-lg mb-6">Car Image</h2>
@@ -36,7 +51,8 @@ function UploadImage() {
                 </div>
             </label>
             <input type="file" multiple={true} id='upload-images' className='opacity-0' onChange={handleSubmitImages}/>
-        </div>        
+        </div>    
+        <button onClick={UploadImage}> upload </button>    
     </div>
   )
 }

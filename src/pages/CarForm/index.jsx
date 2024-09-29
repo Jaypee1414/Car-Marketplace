@@ -77,13 +77,13 @@ function CarFrom() {
                     </div>
                 </div>
                 <Separator className='border mt-10 mb-10'/>
-                <UploadImage/>
                 <div>
                     <div className="mt-10 flex justify-end">
                         <Button>Submit</Button>
                     </div>
                 </div>
             </form>
+            <UploadImage/>
         </div>
     </div>
   )
