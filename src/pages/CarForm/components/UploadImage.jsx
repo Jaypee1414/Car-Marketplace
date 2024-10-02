@@ -1,9 +1,9 @@
 import { storage } from '../../../../configs/firebaseConfig';
-import { ref, uploadBytes } from 'firebase/storage';
-import React, { useState } from 'react'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import React, { useEffect, useState } from 'react'
 import { IoCloseCircle } from "react-icons/io5";
 
-function UploadImage() {
+function UploadImage({triggeredUploadImages}) {
     const [uploadImages, setUploadImages] = useState([])
 
     const handleSubmitImages = (event) =>{ 
@@ -22,6 +22,11 @@ function UploadImage() {
         setUploadImages(result)
     }
 
+    useEffect(()=>{
+        if(triggeredUploadImages){
+            UploadImage()
+        }
+    },[triggeredUploadImages])
     const UploadImage = () => {
         uploadImages.forEach((image) => {
             const filename = Date.now + 'jpeg'
@@ -31,6 +36,10 @@ function UploadImage() {
             }
             uploadBytes(storageRef,image,metaData).then((snapshot) => {
                 console.log('Upload Image Successful')
+            }).then((res)=>{
+                getDownloadURL(storageRef).then(async (downloadURL) => {
+                    console.log(downloadURL)
+                })
             })
         })
     }
@@ -52,7 +61,6 @@ function UploadImage() {
             </label>
             <input type="file" multiple={true} id='upload-images' className='opacity-0' onChange={handleSubmitImages}/>
         </div>    
-        <button onClick={UploadImage}> upload </button>    
     </div>
   )
 }

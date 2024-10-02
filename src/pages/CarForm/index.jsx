@@ -10,10 +10,13 @@ import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { db } from "./../../../configs/index"
 import { carListing } from "../../../configs/schema"
+import { RiLoader4Fill } from "react-icons/ri";
 function CarFrom() {
 
     const [formData, setFormData] = useState([])
     const [feartures, setFeatures] = useState({})
+    const [loader, setLoader] = useState(false)
+    const [triggeredUploadImages, setTriggeredUploadImages] = useState()
 
     const handleInput = (name, value) => {
         setFormData((prevData) => ({
@@ -35,15 +38,21 @@ function CarFrom() {
     async function onSubmit(e){
         e.preventDefault()
         console.log(formData)
+        setLoader(true)
 
         try {
-            const reuslt = await db.insert(carListing).values({
+            const result = await db.insert(carListing).values({
                 ...formData,
                 features: feartures
-            })
-            console.log("Data is save")
+            }).returning({id:carListing.id})
+            if(result){
+                console.log("Data is save")
+                setTriggeredUploadImages(result?.[0]?.id)
+                setLoader(false)
+            }
         } catch (e) {
             console.log("Data is not Error")   
+            setLoader(false)
         }
         
     }
@@ -68,22 +77,26 @@ function CarFrom() {
                 <Separator className='border mt-10 mb-10'/>
                 <div>
                     <h2 className="font-medium text-lg mb-6">Features</h2>
-                    <div className="grid grid-cols-4 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
                         {features.features.map((item,index)=>(
                             <div key={index}>
-                                <Checkbox  onCheckedChange={(value)=> handlefeatures(item.name,value)} />{item.name}
+                                <Checkbox  onCheckedChange={(value)=> handlefeatures(item.name,value)} /> <label htmlFor="">{item.name}</label>
                             </div>
                         ))}
                     </div>
                 </div>
                 <Separator className='border mt-10 mb-10'/>
+                <UploadImage triggeredUploadImages={triggeredUploadImages}/>
                 <div>
                     <div className="mt-10 flex justify-end">
-                        <Button>Submit</Button>
+                        <Button
+                            disabled={loader}
+                        >
+                            {loader? <RiLoader4Fill className="animate-spin"/> : "Submit"}
+                        </Button>
                     </div>
                 </div>
             </form>
-            <UploadImage/>
         </div>
     </div>
   )
