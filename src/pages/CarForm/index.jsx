@@ -86,7 +86,7 @@ function CarFrom() {
                     </div>
                 </div>
                 <Separator className='border mt-10 mb-10'/>
-                <UploadImage triggeredUploadImages={triggeredUploadImages}/>
+                <UploadImage setLoader={setLoader} triggeredUploadImages={triggeredUploadImages}/>
                 <div>
                     <div className="mt-10 flex justify-end">
                         <Button

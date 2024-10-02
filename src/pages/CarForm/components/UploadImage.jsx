@@ -1,9 +1,11 @@
+import { db } from '../../../../configs/index';
 import { storage } from '../../../../configs/firebaseConfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from 'react'
 import { IoCloseCircle } from "react-icons/io5";
+import { carImages } from '../../../../configs/schema';
 
-function UploadImage({triggeredUploadImages}) {
+function UploadImage({triggeredUploadImages,setLoader}) {
     const [uploadImages, setUploadImages] = useState([])
 
     const handleSubmitImages = (event) =>{ 
@@ -27,20 +29,27 @@ function UploadImage({triggeredUploadImages}) {
             UploadImage()
         }
     },[triggeredUploadImages])
-    const UploadImage = () => {
-        uploadImages.forEach((image) => {
+    const UploadImage = async() => {
+       await uploadImages.forEach((image) => {
             const filename = Date.now + 'jpeg'
             const storageRef = ref(storage,'car-marketplace/' + filename)
             const metaData ={
                 contentType: 'image/jpeg'
-            }
+            } 
             uploadBytes(storageRef,image,metaData).then((snapshot) => {
                 console.log('Upload Image Successful')
             }).then((res)=>{
+                setLoader(true)
                 getDownloadURL(storageRef).then(async (downloadURL) => {
                     console.log(downloadURL)
+                    await db.insert(carImages).values({
+                        imageURL: downloadURL,
+                        carListingId: triggeredUploadImages
+                    })
                 })
+                setLoader(false)
             })
+            
         })
     }
 
