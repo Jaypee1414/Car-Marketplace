@@ -11,6 +11,7 @@ import { useState } from "react"
 import { db } from "./../../../configs/index"
 import { carListing } from "../../../configs/schema"
 import { RiLoader4Fill } from "react-icons/ri";
+import { toast } from "@/hooks/use-toast"
 function CarFrom() {
 
     const [formData, setFormData] = useState([])
@@ -39,7 +40,10 @@ function CarFrom() {
         e.preventDefault()
         console.log(formData)
         setLoader(true)
-
+        toast({
+            title: "Uploading Car Details",
+            description: "Please Wait for a few seconds",
+          })
         try {
             const result = await db.insert(carListing).values({
                 ...formData,
@@ -51,6 +55,11 @@ function CarFrom() {
                 setLoader(false)
             }
         } catch (e) {
+            toast({
+                variant: "destructive",
+                title: "Uploading Car Details",
+                description: "Please Wait for a few seconds",
+              })
             console.log("Data is not Error")   
             setLoader(false)
         }

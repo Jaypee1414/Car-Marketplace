@@ -38,16 +38,16 @@ function UploadImage({triggeredUploadImages,setLoader}) {
             } 
             uploadBytes(storageRef,image,metaData).then((snapshot) => {
                 console.log('Upload Image Successful')
-            }).then((res)=>{
                 setLoader(true)
+            }).then((res)=>{
                 getDownloadURL(storageRef).then(async (downloadURL) => {
                     console.log(downloadURL)
                     await db.insert(carImages).values({
                         imageURL: downloadURL,
                         carListingId: triggeredUploadImages
                     })
+                    setLoader(false)
                 })
-                setLoader(false)
             })
             
         })
