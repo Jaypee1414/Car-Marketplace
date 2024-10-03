@@ -1,16 +1,22 @@
 import Header from "@/components/Header"
-import { Button } from "@/components/ui/button"
-import { Link } from "react-router-dom"
+import MyListing from "./Component/MyListing"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 function Profile() {
   return (
     <div>
       <Header/>
       <div className="p-11 flex flex-row justify-between items-center">
-        <h2 className="font-bold text-4xl">My Listing</h2>
-        <Link to={'/Car-Form'}>
-          <Button>+ Add New</Button>
-        </Link>
+        <Tabs defaultValue="account" className="w-[400px]">
+          <TabsList>
+            <TabsTrigger value="account">My Listing</TabsTrigger>
+            <TabsTrigger value="inbox">Inbox</TabsTrigger>
+            <TabsTrigger value="profile">Profile </TabsTrigger>
+          </TabsList>
+          <TabsContent value="account"><MyListing/></TabsContent>
+          <TabsContent value="inbox">This is a Inbox Content</TabsContent>
+          <TabsContent value="profile">This is your profile</TabsContent>
+        </Tabs>
       </div>
     </div>
   )
