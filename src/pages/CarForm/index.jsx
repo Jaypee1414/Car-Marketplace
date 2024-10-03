@@ -12,12 +12,19 @@ import { db } from "./../../../configs/index"
 import { carListing } from "../../../configs/schema"
 import { RiLoader4Fill } from "react-icons/ri";
 import { toast } from "@/hooks/use-toast"
+import { useUser } from "@clerk/clerk-react"
 function CarFrom() {
 
     const [formData, setFormData] = useState([])
     const [feartures, setFeatures] = useState({})
     const [loader, setLoader] = useState(false)
     const [triggeredUploadImages, setTriggeredUploadImages] = useState()
+    const {user} = useUser()
+
+    const now = new Date()
+    const month = now.getMonth()
+    const day = now.getDay()
+    const year = now.getFullYear()
 
     const handleInput = (name, value) => {
         setFormData((prevData) => ({
@@ -47,7 +54,9 @@ function CarFrom() {
         try {
             const result = await db.insert(carListing).values({
                 ...formData,
-                features: feartures
+                features: feartures,
+                createdBy: user?.primaryEmailAddress?.emailAddress,
+                posted: `${month}-${day}-${year}`
             }).returning({id:carListing.id})
             if(result){
                 console.log("Data is save")
