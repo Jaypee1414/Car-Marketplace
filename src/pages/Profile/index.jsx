@@ -8,10 +8,10 @@ function Profile() {
       <Header/>
       <div className="p-11 flex flex-row justify-between items-center">
         <Tabs defaultValue="account" className="w-[400px]">
-          <TabsList>
-            <TabsTrigger value="account">My Listing</TabsTrigger>
-            <TabsTrigger value="inbox">Inbox</TabsTrigger>
-            <TabsTrigger value="profile">Profile </TabsTrigger>
+          <TabsList className="flex space-x-3 w-60">
+            <TabsTrigger value="account" className="p-3">My Listing</TabsTrigger>
+            <TabsTrigger value="inbox" className="p-3">Inbox</TabsTrigger>
+            <TabsTrigger value="profile" className="p-3">Profile </TabsTrigger>
           </TabsList>
           <TabsContent value="account"><MyListing/></TabsContent>
           <TabsContent value="inbox">This is a Inbox Content</TabsContent>

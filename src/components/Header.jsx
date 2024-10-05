@@ -1,4 +1,4 @@
-import { UserButton, useUser } from '@clerk/clerk-react'
+import { UserButton, useUser, SignedIn, SignInButton} from '@clerk/clerk-react'
 import { Button } from './ui/button'
 import logo from '../assets/logo.svg'
 import { Link } from 'react-router-dom'
@@ -19,7 +19,9 @@ function Header() {
             <Link to={'/profile'}>
               <Button>Submit Listing</Button>
             </Link>
-        </div> : <Link to={'/profile'}><Button>Submit Listing</Button></Link>
+        </div> :  <SignInButton>
+        <Button>Login</Button>
+        </SignInButton>  
         }
     </div>
   )

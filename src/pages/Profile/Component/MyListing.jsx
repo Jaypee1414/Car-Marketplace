@@ -5,25 +5,30 @@ import { db } from '../../../../configs/index'
 import { carImages, carListing } from '../../../../configs/schema'
 import { desc, eq } from 'drizzle-orm'
 import { useUser } from '@clerk/clerk-react'
-
+import Service from '@/shared/Service'
 function MyListing() {
 
     const {user} = useUser()
 
     useEffect(()=>{
-        const getCarListing = async () =>{
+        user && getCarListing()
+    },[user])
+    const getCarListing = async () =>{
+        try {
             const result = await db.select()
             .from(carListing)
             .leftJoin(carImages,eq(carListing.id, carImages.carListingId))
             .where(eq(carListing.createdBy, user?.primaryEmailAddress?.emailAddress))
             .orderBy(desc(carListing.id))
-            console.log(result)
+            const res = Service.FormResult(result)
+            console.log(res)
+        } catch (error) {
+            console.log("Error")
         }
-        getCarListing()
-    },[user])
+    }
   return (
     <div>
-        <h2 className="font-bold text-4xl">My Listing</h2>
+        <h2 className="font-bold text-4xl py-4">My Listing</h2>
         <Link to={'/Car-Form'}>
             <Button>+ Add New</Button>
         </Link>
