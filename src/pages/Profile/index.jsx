@@ -6,8 +6,8 @@ function Profile() {
   return (
     <div>
       <Header/>
-      <div className="p-11 flex flex-row justify-between items-center">
-        <Tabs defaultValue="account" className="w-[400px]">
+      <div className="p-11 flex flex-row justify-between items-center w-[100%]">
+        <Tabs defaultValue="account" className="w-[100%]">
           <TabsList className="flex space-x-3 w-60">
             <TabsTrigger value="account" className="p-3">My Listing</TabsTrigger>
             <TabsTrigger value="inbox" className="p-3">Inbox</TabsTrigger>

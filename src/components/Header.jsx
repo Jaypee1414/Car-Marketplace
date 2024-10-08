@@ -8,7 +8,9 @@ function Header() {
     <div className='flex justify-between items-center shadow-sm p-5'>
         <img src={logo} alt="" width={170} height={150} />
         <ul className='hidden md:flex gap-16'>
+          <Link to={'/'}>
             <li className='font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Home</li>
+          </Link>
             <li className='font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>List</li>
             <li className='font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>About</li>
             <li className='font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Contact</li>

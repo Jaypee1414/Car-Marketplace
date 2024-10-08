@@ -25,5 +25,5 @@ const FormResult = (res) => {
 }
 
 export default {
-    FormResult,
+    FormResult
 }
