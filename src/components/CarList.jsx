@@ -23,7 +23,6 @@ function CarList() {
       const result = await db.select()
       .from(carListing)
       .leftJoin(carImages,eq(carListing.id, carImages.carListingId))
-      .where(eq(carListing.createdBy, user?.primaryEmailAddress?.emailAddress))
       .orderBy(desc(carListing.id))
       setUserCarList(result)
       console.log(result)

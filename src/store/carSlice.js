@@ -1,25 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { db } from '../../configs/index'
+import { carImages, carListing } from '../../configs/schema'
 
+const carListing = async () =>{
+    const result = await db.select()
+    .from(carListing)
+    .leftJoin(carImages,eq(carListing.id, carImages.carListingId))
+    .orderBy(desc(carListing.id))
+    console.log(result)
+}
 
 export const carSlice = createSlice({
     name: 'car', 
-    initialState: null,
+    initialState: carListing,
     reducers: {
         
-        addCarListing: () => {
+        addCarListing: (state) => {
 
         }, 
 
-        fetchCarListing: () => {
+        fetchCarListing: (state) => {
 
         },
 
-        deleteCarListing: () => {
+        getCarListByEmail:(state) => {
+
+        },
+
+        deleteCarListing: (state) => {
 
 
         },
 
-        updateCarListing: () => {
+        updateCarListing:(state) => {
 
         }
     }
