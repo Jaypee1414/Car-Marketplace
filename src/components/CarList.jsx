@@ -12,6 +12,7 @@ import {
     CarouselNext,
     CarouselPrevious,
   } from "@/components/ui/carousel"
+import { Button } from "./ui/button"
 
 function CarList() {
   const {user} = useUser()

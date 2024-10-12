@@ -7,14 +7,23 @@ import { Separator } from "@radix-ui/react-select"
 import { Checkbox } from "@/components/ui/checkbox"
 import features from "@/shared/features"
 import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { db } from "./../../../configs/index"
-import { carListing } from "../../../configs/schema"
+import { carImages, carListing } from "../../../configs/schema"
+import { desc, eq } from 'drizzle-orm'
 import { RiLoader4Fill } from "react-icons/ri";
 import { toast } from "@/hooks/use-toast"
 import { useUser } from "@clerk/clerk-react"
+import { useParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
+import CarList from "@/components/CarList"
+import Service from "@/shared/Service"
 function CarFrom() {
 
+    const [carInfo, setCarInfo] = useState([])
+    const [searchParams, setSearchParams] = useSearchParams()
+    const mode = searchParams.get('mode')
+    const carId = searchParams.get('id')
     const [formData, setFormData] = useState([])
     const [feartures, setFeatures] = useState({})
     const [loader, setLoader] = useState(false)
@@ -25,6 +34,22 @@ function CarFrom() {
     const month = now.getMonth()
     const day = now.getDay()
     const year = now.getFullYear()
+
+    useEffect(()=>{
+        if(mode === 'edit'){
+            getCarDetails()
+        }
+    },[])
+
+    const getCarDetails = async()=>{
+        const result = await db.select()
+        .from(carListing)
+        .leftJoin(carImages,eq(carListing.id, carImages.carListingId))
+        .where(eq(carListing.id,carId))
+        const res = Service.FormResult(result)
+        setCarInfo(res)
+        console.log(res)
+    }
 
     const handleInput = (name, value) => {
         setFormData((prevData) => ({
@@ -84,10 +109,10 @@ function CarFrom() {
                 <div>
                     <h2 className="font-medium text-lg mb-6">Car Details</h2>
                     <div className="grid grid-cols-2 gap-5">
-                        {carDetails.carDetails.map((item,index)=>(
+                        {carDetails.carDetails.map((item,index)=>(                            
                             <div key={index}>
                                 <label className="text-sm font-medium">{item.name}{item.required && <span className="text-rose-600 text-lg">*</span>}</label>
-                                {item.fieldType === "text" || item.fieldType === "number" ? <InputField item={item} handleInput={handleInput}/> : item.fieldType === "dropdown"? <DropdownField item={item} handleInput={handleInput}/> : null}
+                                {item.fieldType === "text" || item.fieldType === "number" ? <InputField item={item} handleInput={handleInput} carInfo={carInfo}/> : item.fieldType === "dropdown"? <DropdownField item={item} handleInput={handleInput}/> : null}
                             </div>
                         ))}
                     </div>

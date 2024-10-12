@@ -7,6 +7,7 @@ import { desc, eq } from 'drizzle-orm'
 import { useUser } from '@clerk/clerk-react'
 import Service from '@/shared/Service'
 import CarCard from '@/components/ui/CarCard'
+import { MdDeleteForever } from "react-icons/md";
 function MyListing() {
 
     const {user} = useUser()
@@ -39,6 +40,12 @@ function MyListing() {
             userCarList.map((item,index) =>(
                 <div key={index}>
                     <CarCard Car={item}/>
+                    <div className='flex flex-row justify-between'>
+                        <Link to={'/Car-Form?mode=edit&id=' + item.carList.id} className="w-full">
+                            <Button variant="outline" className="w-full">Edit</Button>
+                        </Link>
+                        <Button className="bg-red-600"><MdDeleteForever className='text-lg'/></Button>
+                    </div>
                 </div>
             ))}
         </div>
