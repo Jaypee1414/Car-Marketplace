@@ -49,10 +49,9 @@ function CarFrom() {
         .leftJoin(carImages,eq(carListing.id, carImages.carListingId))
         .where(eq(carListing.id,carId))
         const res = Service.FormResult(result)
-        setCarInfo(res)
-        setFeatures(res.features)
+        setCarInfo(res[0])
+        setFeatures(res[0].features)
         setFormData(res[0])
-        console.log(res.features)
     }
 
     const handleInput = (name, value) => {
