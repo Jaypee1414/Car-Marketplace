@@ -10,15 +10,15 @@ const FormResult = (res) => {
             }
         }
         if(item.carImages){
-            result[listingId].image.push(item.image)
+            result[listingId].image.push(item.carImages)
         }
     })
 
     result.forEach((item) => {
-        finalResult ={
-            ...item.car , 
+        finalResult.push({
+            ...item.car, 
             image: item.image
-        }
+        })
     })
 
     return finalResult
