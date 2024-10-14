@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { IoCloseCircle } from "react-icons/io5";
 import { carImages } from '../../../../configs/schema';
 
-function UploadImage({triggeredUploadImages,setLoader}) {
+function UploadImage({triggeredUploadImages,setLoader, carInfo}) {
     const [uploadImages, setUploadImages] = useState([])
 
     const handleSubmitImages = (event) =>{ 

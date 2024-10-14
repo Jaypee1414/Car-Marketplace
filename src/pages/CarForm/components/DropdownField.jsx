@@ -6,14 +6,17 @@ import {
     SelectValue,
   } from "@/components/ui/select"
   
-function DropdownField({item, handleInput}) {
+function DropdownField({item, handleInput,carInfo}) {
   return (
     <div>
-    <Select onValueChange={(value) => handleInput(item.name, value)}>
-        <SelectTrigger className="w-full">
+    <Select onValueChange={(value) => handleInput(item.name, value)} 
+      >
+        <SelectTrigger className="w-full"
+        >
             <SelectValue placeholder={item.label} />
         </SelectTrigger>
-        <SelectContent>  
+        <SelectContent
+        >  
             {item.options.map((item, index) => (
                 <SelectItem value={item} key={index}>{item}</SelectItem>
             ))}

@@ -14,12 +14,13 @@ import { desc, eq } from 'drizzle-orm'
 import { RiLoader4Fill } from "react-icons/ri";
 import { toast } from "@/hooks/use-toast"
 import { useUser } from "@clerk/clerk-react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useSearchParams } from "react-router-dom"
 import CarList from "@/components/CarList"
 import Service from "@/shared/Service"
 function CarFrom() {
 
+    
     const [carInfo, setCarInfo] = useState([])
     const [searchParams, setSearchParams] = useSearchParams()
     const mode = searchParams.get('mode')
@@ -29,6 +30,7 @@ function CarFrom() {
     const [loader, setLoader] = useState(false)
     const [triggeredUploadImages, setTriggeredUploadImages] = useState()
     const {user} = useUser()
+    const navigate = useNavigate()
 
     const now = new Date()
     const month = now.getMonth()
@@ -48,7 +50,9 @@ function CarFrom() {
         .where(eq(carListing.id,carId))
         const res = Service.FormResult(result)
         setCarInfo(res)
-        console.log(res)
+        setFeatures(res.features)
+        setFormData(res[0])
+        console.log(res.features)
     }
 
     const handleInput = (name, value) => {
@@ -57,7 +61,6 @@ function CarFrom() {
             [name] : value
         })
         )
-        console.log(name,":",value)
     }
 
     const handlefeatures = (name, value) => {
@@ -76,28 +79,60 @@ function CarFrom() {
             title: "Uploading Car Details",
             description: "Please Wait for a few seconds",
           })
-        try {
-            const result = await db.insert(carListing).values({
-                ...formData,
-                features: feartures,
-                createdBy: user?.primaryEmailAddress?.emailAddress,
-                posted: `${month}-${day}-${year}`
-            }).returning({id:carListing.id})
+
+          if(mode === 'edit'){
+            try {
+                const result = await db.update(carListing)
+                .set({
+                    ...formData,
+                    features: feartures,
+                    createdBy: user?.primaryEmailAddress?.emailAddress,
+                    posted: `${month}-${day}-${year}`
+                }).where(eq(carListing.id,carId))
+
             if(result){
-                console.log("Data is save")
+                toast({
+                title: "Succesfully Update",
+                description: `successfully update car details name ${carInfo.listingTitle}`,
+                className:"bg-green-100 text-green-800"
+                })
+                navigate('/profile')
                 setTriggeredUploadImages(result?.[0]?.id)
                 setLoader(false)
             }
-        } catch (e) {
+            
+            } catch (error) {
             toast({
                 variant: "destructive",
                 title: "Uploading Car Details",
                 description: "Please Wait for a few seconds",
-              })
+                })
             console.log("Data is not Error")   
             setLoader(false)
-        }
-        
+            }
+          }else{
+            try {
+                const result = await db.insert(carListing).values({
+                    ...formData,
+                    features: feartures,
+                    createdBy: user?.primaryEmailAddress?.emailAddress,
+                    posted: `${month}-${day}-${year}`
+                }).returning({id:carListing.id})
+                if(result){
+                    console.log("Data is save")
+                    setTriggeredUploadImages(result?.[0]?.id)
+                    setLoader(false)
+                }
+            } catch (e) {
+                toast({
+                    variant: "destructive",
+                    title: "Uploading Car Details",
+                    description: "Please Wait for a few seconds",
+                  })
+                console.log("Data is not Error")   
+                setLoader(false)
+            }
+          }
     }
     
   return (
@@ -112,7 +147,7 @@ function CarFrom() {
                         {carDetails.carDetails.map((item,index)=>(                            
                             <div key={index}>
                                 <label className="text-sm font-medium">{item.name}{item.required && <span className="text-rose-600 text-lg">*</span>}</label>
-                                {item.fieldType === "text" || item.fieldType === "number" ? <InputField item={item} handleInput={handleInput} carInfo={carInfo}/> : item.fieldType === "dropdown"? <DropdownField item={item} handleInput={handleInput}/> : null}
+                                {item.fieldType === "text" || item.fieldType === "number" ? <InputField item={item} handleInput={handleInput} carInfo={carInfo}/> : item.fieldType === "dropdown"? <DropdownField item={item} carInfo={carInfo} handleInput={handleInput}/> : null}
                             </div>
                         ))}
                     </div>
@@ -123,13 +158,14 @@ function CarFrom() {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
                         {features.features.map((item,index)=>(
                             <div key={index}>
-                                <Checkbox  onCheckedChange={(value)=> handlefeatures(item.name,value)} /> <label htmlFor="">{item.name}</label>
+                                <Checkbox  onCheckedChange={(value)=> handlefeatures(item.name,value)} 
+                                checked={feartures?.[item.name]} /> <label htmlFor="">{item.name}</label>
                             </div>
                         ))}
                     </div>
                 </div>
                 <Separator className='border mt-10 mb-10'/>
-                <UploadImage setLoader={setLoader} triggeredUploadImages={triggeredUploadImages}/>
+                <UploadImage setLoader={setLoader} triggeredUploadImages={triggeredUploadImages} carInfo={carInfo}/>
                 <div>
                     <div className="mt-10 flex justify-end">
                         <Button

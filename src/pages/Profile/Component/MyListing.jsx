@@ -11,7 +11,8 @@ import { MdDeleteForever } from "react-icons/md";
 function MyListing() {
 
     const {user} = useUser()
-    const [userCarList, setUserCarList] = useState([]) 
+    const [userCarList, setUserCarList] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(()=>{
         user && getCarListing()
@@ -24,8 +25,11 @@ function MyListing() {
             .where(eq(carListing.createdBy, user?.primaryEmailAddress?.emailAddress))
             .orderBy(desc(carListing.id))
             const res = Service.FormResult(result)
-            setUserCarList(result)
-            console.log(result)
+            setUserCarList(res)
+    }
+
+    if(userCarList.length > 0){
+        setLoading(false)
     }
   return (
     <div>
@@ -36,8 +40,10 @@ function MyListing() {
             </Link>
         </div>
         <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2'>
+            
             {
-            userCarList.map((item,index) =>(
+            loading ? "Loading" :
+            userCarList?.map((item,index)=>(
                 <div key={index}>
                     <CarCard Car={item}/>
                     <div className='flex flex-row justify-between'>
