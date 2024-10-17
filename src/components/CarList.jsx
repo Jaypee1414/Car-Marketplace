@@ -13,6 +13,7 @@ import {
     CarouselPrevious,
   } from "@/components/ui/carousel"
 import { Button } from "./ui/button"
+import Service from "@/shared/Service"
 
 function CarList() {
   const {user} = useUser()
@@ -25,8 +26,8 @@ function CarList() {
       .from(carListing)
       .leftJoin(carImages,eq(carListing.id, carImages.carListingId))
       .orderBy(desc(carListing.id))
-      setUserCarList(result)
-      console.log(result)
+      let res   = Service.FormResult(result)
+      setUserCarList(res)
   }
   return (
     <div>

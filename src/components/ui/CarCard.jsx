@@ -7,7 +7,7 @@ import { MdOpenInNew } from "react-icons/md";
 function CarCard({ Car }) {
   return (
     <div className=' hover:shadow-lg cursor-pointer rounded-b-xl'>
-      <img src={Car.image[0].imageURL} alt="" width={300} height={250} className='rounded-t-xl mt-10'/>
+      <img src={Car?.image[0]?.imageURL} alt="" width={300} height={250} className='rounded-t-xl mt-10'/>
       <div className='p-4'>
         <h2 className='font-bold text-sm md:text-lg mb-2'>{Car.listingTitle}</h2>
         <Separator className='border-2'/>
