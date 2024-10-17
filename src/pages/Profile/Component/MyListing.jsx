@@ -27,6 +27,14 @@ function MyListing() {
         setCarInfo(res)
     }
 
+    const handleDeleteCar = async (car) => {
+        const result = await db.delete()
+        .from(carListing)
+        .where(eq(carListing.id, car.id))
+
+        
+    }
+
   return (
     <div>
         <div className='flex justify-between items-center'>
@@ -44,7 +52,7 @@ function MyListing() {
                         <Link to={'/Car-Form?mode=edit&id=' + car.id} className="w-full">
                         <Button variant="outline" className="w-full">Edit</Button>
                         </Link>
-                        <Button className="bg-red-600"><MdDeleteForever className='text-lg'/></Button>
+                        <Button className="bg-red-600" onClick={() => handleDeleteCar(car)}><MdDeleteForever className='text-lg'/></Button>
                     </div>
                 </div>
             ))}

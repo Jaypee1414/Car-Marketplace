@@ -5,8 +5,21 @@ import React, { useEffect, useState } from 'react'
 import { IoCloseCircle } from "react-icons/io5";
 import { carImages } from '../../../../configs/schema';
 
-function UploadImage({triggeredUploadImages,setLoader, carInfo}) {
+function UploadImage({triggeredUploadImages,setLoader, carInfo, mode}) {
     const [uploadImages, setUploadImages] = useState([])
+    const [carEditImages, setCarEditImages] = useState([])
+    
+    useEffect(()=>{
+        if(mode === 'edit'){
+            carInfo?.forEach(item => {
+                setCarEditImages( prev => [...prev,item.image.imageURL])
+            })
+        }
+    },[mode])
+
+    console.log(carInfo)
+
+
 
     const handleSubmitImages = (event) =>{ 
         const image = event.target.files
