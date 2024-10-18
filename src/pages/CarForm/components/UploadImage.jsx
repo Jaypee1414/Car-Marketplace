@@ -13,10 +13,11 @@ function UploadImage({triggeredUploadImages,setLoader, carInfo, mode}) {
     useEffect(()=>{
         if(mode === 'edit'){
             carInfoArray[0].image?.forEach((image) => {
+                console.log(image)
                 setCarEditImages(prev => [...prev, image.imageURL])
             })
         }
-    },[mode])
+    },[mode,carInfo])
 
 
     const handleSubmitImages = (event) =>{ 
@@ -64,16 +65,23 @@ function UploadImage({triggeredUploadImages,setLoader, carInfo, mode}) {
         })
     }
 
+    console.log(carEditImages)
+
   return (
     <div>
         <h2 className="font-medium text-lg mb-6">Car Image</h2>
-        <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2'>
-            {uploadImages.map((img,index) => (
+        <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2'>            
+            {carEditImages ? carEditImages.map((img,index) => (
             <div key={index}>
                 <IoCloseCircle className='absolute m-3 cursor-pointer text-white' onClick={() => removeItem(img)}/>
-                <img src={URL.createObjectURL(img)} alt="car image" className='w-full object-cover rounded-lg hover:shadow-md' />
+                <img src={img} alt="car image" className='w-full object-cover rounded-lg hover:shadow-md' />
             </div>
-            ))}
+            )) : uploadImages.map((img,index) => (
+                <div key={index}>
+                    <IoCloseCircle className='absolute m-3 cursor-pointer text-white' onClick={() => removeItem(img)}/>
+                    <img src={URL.createObjectURL(img)} alt="car image" className='w-full object-cover rounded-lg hover:shadow-md' />
+                </div>
+                ))}
             <label htmlFor='upload-images'>
                 <div className='flex justify-center items-center border rounded-lg border-dotted border-primary bg-blue-100 cursor-pointer hover:shadow-md p-10'>
                     <h2 className='text-lg item-center text-primary'>+</h2>
