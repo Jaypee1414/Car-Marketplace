@@ -3,7 +3,8 @@ import { storage } from '../../../../configs/firebaseConfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from 'react'
 import { IoCloseCircle } from "react-icons/io5";
-import { carImages } from '../../../../configs/schema';
+import { eq } from "drizzle-orm";
+import { carImages, carListing } from '../../../../configs/schema';
 
 function UploadImage({triggeredUploadImages,setLoader, carInfo, mode}) {
     let carInfoArray = [carInfo]
@@ -14,10 +15,10 @@ function UploadImage({triggeredUploadImages,setLoader, carInfo, mode}) {
         if(mode === 'edit'){
             carInfoArray[0].image?.forEach((image) => {
                 console.log(image)
-                setCarEditImages(prev => [...prev, image.imageURL])
+                setCarEditImages(prev => [...prev, image])
             })
         }
-    },[mode,carInfo])
+    },[carInfo])
 
 
     const handleSubmitImages = (event) =>{ 
@@ -26,6 +27,20 @@ function UploadImage({triggeredUploadImages,setLoader, carInfo, mode}) {
         for (let index = 0; index < image.length; index++) {
             const file = image[index]
             setUploadImages((prevdata)=>[...prevdata,file])
+        }
+    }
+
+    const deleteImg = async(car) =>{
+        try {
+            const result = await db.delete(carImages)
+            .where(eq(carImages.id, car.id))
+            setCarEditImages(
+                carEditImages.filter(carImg => {
+                    return carImg.id != car.id
+                }))
+            console.log("Delete Car Image Success")
+        } catch (error) {
+            console.log("Delete Car Image Success", error)
         }
     }
 
@@ -71,10 +86,11 @@ function UploadImage({triggeredUploadImages,setLoader, carInfo, mode}) {
     <div>
         <h2 className="font-medium text-lg mb-6">Car Image</h2>
         <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2'>            
-            {carEditImages ? carEditImages.map((img,index) => (
+            {carEditImages? carEditImages.map((img,index) => (
             <div key={index}>
-                <IoCloseCircle className='absolute m-3 cursor-pointer text-white' onClick={() => removeItem(img)}/>
-                <img src={img} alt="car image" className='w-full object-cover rounded-lg hover:shadow-md' />
+                {console.log(img)}
+                <IoCloseCircle className='absolute m-3 cursor-pointer text-white' onClick={() => deleteImg(img)}/>
+                <img src={img.imageURL} alt="car image" className='w-full object-cover rounded-lg hover:shadow-md' />
             </div>
             )) : uploadImages.map((img,index) => (
                 <div key={index}>
