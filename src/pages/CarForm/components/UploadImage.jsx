@@ -58,8 +58,8 @@ function UploadImage({triggeredUploadImages,setLoader, carInfo, mode}) {
     },[triggeredUploadImages])
     const UploadImage = async() => {
        await uploadImages.forEach((image) => {
-            const filename = Date.now + 'jpeg'
-            const storageRef = ref(storage,'car-marketplace/' + filename)
+            const filename = Date.now() + 'jpeg'
+            const storageRef = ref(storage,'car-maketplace/' + filename)
             const metaData ={
                 contentType: 'image/jpeg'
             } 
@@ -86,7 +86,7 @@ function UploadImage({triggeredUploadImages,setLoader, carInfo, mode}) {
     <div>
         <h2 className="font-medium text-lg mb-6">Car Image</h2>
         <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2'>            
-            {carEditImages? carEditImages.map((img,index) => (
+            {carEditImages.lenght === 0 ? carEditImages.map((img,index) => (
             <div key={index}>
                 {console.log(img)}
                 <IoCloseCircle className='absolute m-3 cursor-pointer text-white' onClick={() => deleteImg(img)}/>

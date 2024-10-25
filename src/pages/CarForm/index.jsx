@@ -53,6 +53,8 @@ function CarFrom() {
     setFormData(res[0]);
   };
 
+  console.log(mode)
+
   const handleInput = (name, value) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -67,6 +69,7 @@ function CarFrom() {
     }));
     console.log(name, ":", value);
   };
+
   async function onSubmit(e) {
     e.preventDefault();
     console.log(formData);
@@ -76,7 +79,7 @@ function CarFrom() {
       description: "Please Wait for a few seconds",
     });
 
-    if (mode === "edit") {
+    if (mode === "edit" || mode !== null){
       try {
         const result = await db
           .update(carListing)
@@ -86,7 +89,8 @@ function CarFrom() {
             createdBy: user?.primaryEmailAddress?.emailAddress,
             posted: `${month}-${day}-${year}`,
           })
-          .where(eq(carListing.id, carId));
+          .where(eq(carListing.id, carId)) 
+          .returning({ id: carListing.id });;
 
         if (result) {
           toast({
@@ -94,8 +98,9 @@ function CarFrom() {
             description: `successfully update car details name ${carInfo.listingTitle}`,
             className: "bg-green-100 text-green-800",
           });
-          navigate("/profile");
+          console.log(result?.[0]?.id)
           setTriggeredUploadImages(result?.[0]?.id);
+          navigate("/profile");
           setLoader(false);
         }
       } catch (error) {
@@ -118,16 +123,18 @@ function CarFrom() {
             posted: `${month}-${day}-${year}`,
           })
           .returning({ id: carListing.id });
-        if (result) {
+
+          console.log(result)
+        if(result){
           console.log("Data is save");
-          setTriggeredUploadImages(result?.[0]?.id);
+          setTriggeredUploadImages(result?.[0].id);
           setLoader(false);
         }
       } catch (e) {
         toast({
           variant: "destructive",
           title: "Uploading Car Details",
-          description: "Please Wait for a few seconds",
+          description: "Submitting Car Details Failed",
         });
         console.log("Data is not Error");
         setLoader(false);
