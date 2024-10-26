@@ -53,7 +53,6 @@ function CarFrom() {
     setFormData(res[0]);
   };
 
-  console.log(mode)
 
   const handleInput = (name, value) => {
     setFormData((prevData) => ({
@@ -141,6 +140,7 @@ function CarFrom() {
       }
     }
   }
+
 
   return (
     <div>
