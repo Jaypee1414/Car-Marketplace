@@ -14,7 +14,7 @@ function Hero() {
             </h2>
             </div>
             <Search/>
-            <img src={Car} width={500} height={500}/>
+            <img src={Car} width={600} height={600}/>
         </div>
     </div>
   )

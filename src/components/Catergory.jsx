@@ -2,7 +2,7 @@ import CatagoryData from "@/shared/CatagoryData"
 import { Link } from "react-router-dom"
 function Catergory() {
   return (
-    <div className="mt-20 py-6">
+    <div className="mt-28 py-6">
         <h2 className="font-bold text-4xl text-center mb-6">Browse By Type</h2>
         <ul className="grid grid-cols-3 px-10 gap-6 sm:grid-cols-4 md:grid-cols-6 md:px-20 lg:grid-cols-9">
             {CatagoryData.Category.map((category)=>{
