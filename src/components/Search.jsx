@@ -12,13 +12,13 @@ import { Link } from "react-router-dom";
 import CarMakes from '@/shared/CatagoryData.js'
 
 function Search() {
-    const [isColor, setIsColor] = useState()
+    const [isCar, setIsCar] = useState()
     const [isModal, setIsModel] = useState()
     const [isPrice, setIsPrice] = useState()
 
    return (
     <div className="p-7 bg-white rounded-md gap-10 items-center w-full px-5 flex flex-col md:mt-7 md:flex-row md:rounded-full md:w-max md:p-4">
-        <Select onValueChange={(value)=> setIsColor(value)}>
+        <Select onValueChange={(value)=> setIsCar(value)}>
         <SelectTrigger className="w-[180px] outline-none md:border-none shadow-none font-medium text-lg">
             <SelectValue placeholder="Cars" />
         </SelectTrigger>
@@ -62,7 +62,7 @@ function Search() {
             })} 
         </SelectContent>
         </Select>
-        <Link to={`/search?color=`+isColor+`&model=`+isModal+`&price=`+isPrice}>
+        <Link to={`/search?cars=`+isCar+`&model=`+isModal+`&price=`+isPrice}>
             <CiSearch  className="text-2xl cursor-pointer hidden md:block"/>
         </Link>
     </div>
