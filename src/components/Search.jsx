@@ -23,9 +23,9 @@ function Search() {
             <SelectValue placeholder="Cars" />
         </SelectTrigger>
         <SelectContent>
-            <SelectItem value="light">New</SelectItem>
-            <SelectItem value="dark">Use</SelectItem>
-            <SelectItem value="system">Certified Pre-owned</SelectItem>
+            <SelectItem value="New">New</SelectItem>
+            <SelectItem value="Used">Use</SelectItem>
+            <SelectItem value="Certified Pre-Owned">Certified Pre-owned</SelectItem>
         </SelectContent>
         </Select>
 
