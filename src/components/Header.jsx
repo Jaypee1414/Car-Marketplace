@@ -6,7 +6,9 @@ function Header() {
     const {isSignedIn } = useUser()
   return (
     <div className='flex justify-between items-center shadow-sm p-5'>
-        <img src={logo} alt="" width={170} height={150} />
+        <Link to={'/'}>
+          <img src={logo} alt="" width={170} height={150} />
+        </Link>
         <ul className='hidden md:flex gap-16'>
           <Link to={'/'}>
             <li className='font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary'>Home</li>
