@@ -6,44 +6,65 @@ import {
     SelectValue,
   } from "@/components/ui/select"
   import { Separator } from "@/components/ui/separator"
+import { useState } from "react";
   import { CiSearch } from "react-icons/ci";
+import { Link } from "react-router-dom";
+import CarMakes from '@/shared/CatagoryData.js'
 
 function Search() {
-  return (
+    const [isColor, setIsColor] = useState()
+    const [isModal, setIsModel] = useState()
+    const [isPrice, setIsPrice] = useState()
+
+   return (
     <div className="p-7 bg-white rounded-md gap-10 items-center w-full px-5 flex flex-col md:mt-7 md:flex-row md:rounded-full md:w-max md:p-4">
-        <Select>
+        <Select onValueChange={(value)=> setIsColor(value)}>
         <SelectTrigger className="w-[180px] outline-none md:border-none shadow-none font-medium text-lg">
-            <SelectValue placeholder="Color" />
+            <SelectValue placeholder="Cars" />
         </SelectTrigger>
         <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
+            <SelectItem value="light">New</SelectItem>
+            <SelectItem value="dark">Use</SelectItem>
+            <SelectItem value="system">Certified Pre-owned</SelectItem>
         </SelectContent>
         </Select>
+
         <Separator orientation="vertical" className=" hidden md:block"/>
-        <Select>
+
+        <Select onValueChange={(value)=> setIsModel(value)}>
         <SelectTrigger className="w-[180px] outline-none md:border-none shadow-none font-medium text-lg">
-            <SelectValue placeholder="Model" />
+            <SelectValue placeholder="Car Makes" />
         </SelectTrigger>
         <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
+            {CarMakes.CarMakes.map((CarMakes, index)=>{
+                return(
+                    <div key={index}>
+                        <SelectItem value={CarMakes.name}>{CarMakes.name}</SelectItem>
+                    </div>
+                )
+            })}            
         </SelectContent>
         </Select>
+
         <Separator orientation="vertical"  className=" hidden md:block"/>
-        <Select>
+        
+        <Select onValueChange={(value)=> setIsPrice(value)}>
         <SelectTrigger className="w-[180px] outline-none md:border-none shadow-none font-medium text-lg">
-            <SelectValue placeholder="Price" />
+            <SelectValue placeholder="Pricing" />
         </SelectTrigger>
         <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
+            {CarMakes.Pricing.map((car, index)=>{
+                return(
+                    <div key={index}>
+                        <SelectItem value={car.amount}>${car.amount}</SelectItem>
+                    </div>
+                )
+            })} 
         </SelectContent>
         </Select>
-        <CiSearch className="text-2xl cursor-pointer hidden md:block"/>
+        <Link to={`/search?color=`+isColor+`&model=`+isModal+`&price=`+isPrice}>
+            <CiSearch  className="text-2xl cursor-pointer hidden md:block"/>
+        </Link>
     </div>
   )
 }

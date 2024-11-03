@@ -80,8 +80,6 @@ const CarMakes=[
       "id": 20,
       "name": "Volvo"
   }
-
-
 ]
 
 const Pricing=[
@@ -149,7 +147,6 @@ const Category=[
   name:'Truck',
   icon:'https://cdn-icons-png.flaticon.com/128/5814/5814855.png'
 },
-
 
 ]
 
