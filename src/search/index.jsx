@@ -3,11 +3,12 @@ import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 function SearchItem() {
-    const [useSearchParams] = useSearchParams()
+    const [searchParams] = useSearchParams()
 
-    const cars = useSearchParams('cars')
-    const model
-    const pricing
+    const cars = searchParams.get('cars')
+    const model = searchParams.get('model')
+    const pricing = searchParams.get('price')
+    
   return (
     <div>
       <Header/>
