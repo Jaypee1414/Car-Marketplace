@@ -14,6 +14,7 @@ import {
   } from "@/components/ui/carousel"
 import { Button } from "./ui/button"
 import Service from "@/shared/Service"
+import { Link } from "react-router-dom"
 
 function CarList() {
   const {user} = useUser()
@@ -37,7 +38,9 @@ function CarList() {
              <CarouselContent>
                 {userCarList.map((Car , index) => (
                 <CarouselItem className="basis-1/2 md:basis-1/4" key={index}>
-                  <CarCard Car={Car}/>
+                  <Link to={'/cardetails/' + Car.id}>
+                    <CarCard Car={Car}/>
+                  </Link> 
                 </CarouselItem>
                 ))}
             </CarouselContent>
