@@ -8,23 +8,23 @@ function CarDetails({car}) {
     console.log(car)
   return (
     <div>
-        <div className='p-32'>
+        <div className='pt-12 px-7 md:px-32 md:pt-32 '>
             <h2 className='text-base md:text-5xl font-bold'>{car.listingTitle}</h2>
             <p className='py-4'>{car.tagline}</p>
             <div className='flex flex-row gap-2'>
-                <div className='flex flex-row items-center gap-1 bg-gray-200 rounded-full px-3 py-2 text-sm'>
+                <div className='flex flex-row items-center gap-1 bg-gray-200 rounded-full px-3 py-2 text-xs md:text-sm'>
                     <LuFuel />
                     {car.fuelType}
                 </div>
-                <div className='flex flex-row items-center gap-1 bg-gray-200 rounded-full px-3 py-2 text-sm'>
+                <div className='flex flex-row items-center gap-1 bg-gray-200 rounded-full px-3 py-2 text-xs md:text-sm'>
                     <CiCalendar />
                     {car.posted}
                 </div>
-                <div className='flex flex-row items-center gap-1 bg-gray-200 rounded-full px-3 py-2 text-sm'>
+                <div className='flex flex-row items-center gap-1 bg-gray-200 rounded-full px-3 py-2 text-xs md:text-sm'>
                     <IoSpeedometerOutline />
                     {car.mileage}
                 </div>
-                <div className='flex flex-row items-center gap-1 bg-gray-200 rounded-full px-3 py-2 text-sm'>
+                <div className='flex flex-row items-center gap-1 bg-gray-200 rounded-full px-3 py-2 text-xs md:text-sm'>
                     <TbManualGearbox />
                     {car.transmission}
                 </div>

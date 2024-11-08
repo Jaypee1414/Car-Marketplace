@@ -5,7 +5,8 @@ import { useParams } from 'react-router-dom'
 import { carImages, carListing } from '../../../../configs/schema'
 import { eq } from 'drizzle-orm'
 import Service from '@/shared/Service'
-import CarDetails from '..'
+import CarDetails from '../components'
+import CarDescription from '../components/CarDescription'
 
 function CarDetailsList() {
     const [setCarDetails, getSetCarDetails] = useState([])
@@ -26,10 +27,21 @@ function CarDetailsList() {
     }
   return (
     <div>
-      <div>
-        <Header/>
-        <CarDetails car={setCarDetails}/>
-      </div>
+       <Header/>
+       <div className=''>
+          <div>
+            <CarDetails car={setCarDetails}/>
+          </div>
+          <div className='grid grid-cols-1 md:grid-cols-3 w-full px-7 md:px-32 '>
+            {/* left bar */}
+            <div className='grid col-span-2'>
+              <CarDescription car={setCarDetails}/>
+            </div>
+
+            {/* right bar */}
+            <div className='bg-slate-600'>right</div>
+          </div>
+       </div>
     </div>
   )
 }
