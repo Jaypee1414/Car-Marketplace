@@ -11,7 +11,6 @@ import CarDescription from '../components/CarDescription'
 function CarDetailsList() {
     const [setCarDetails, getSetCarDetails] = useState([])
     const {id} = useParams()
-    console.log(id)
 
 
     useEffect(()=>{
@@ -39,7 +38,7 @@ function CarDetailsList() {
             </div>
 
             {/* right bar */}
-            <div className='bg-slate-600'>right</div>
+            <div className=''>right</div>
           </div>
        </div>
     </div>
