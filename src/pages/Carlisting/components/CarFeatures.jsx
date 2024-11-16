@@ -2,22 +2,35 @@ import React, { useEffect, useState } from 'react'
 import { FaRegSquareCheck } from "react-icons/fa6";
 
 function CarFeatures({features}) {
-    let feature = {leatherSeats: true, panoramicMoonroof: true, tachometer: true};
+    let featureDisplay = ''
 
-    
-    if (features.features && typeof features.features === 'object') {
-      } else {
-        console.log("features is null or undefined");
-      }
+
+    // if () {
+    //   Object.entries(features.features).map(([key,value])=>{
+    //     featureDisplay += `<div className='flex flex-row gap-2 items-center' >
+    //   <FaRegSquareCheck /> 
+    //   <div>
+    //     ${key}
+    //   </div>
+    // </div>` 
+    //   })
+    // } else {
+    //   console.log("features is null or undefined");
+    // }
 
   return (
     <div>
         <h2 className='text-lg md:text-2xl font-medium'>Car Features</h2>
-
-        {/* {Object.entries(features)} */}
-      <div className='flex flex-row gap-2 items-center' >
-          <FaRegSquareCheck /> 
-      </div>  
+        {(features.features && typeof features.features === 'object') && Object.entries(features.features).map(([key,value])=>{
+          return(
+            <div className='flex flex-row gap-2 items-center' >
+                <FaRegSquareCheck /> 
+                <div>
+                  {key}
+                </div>
+            </div>
+          )
+        })}
     </div>
   )
 }

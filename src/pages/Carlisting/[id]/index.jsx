@@ -7,6 +7,7 @@ import { eq } from 'drizzle-orm'
 import Service from '@/shared/Service'
 import CarDetails from '../components'
 import CarDescription from '../components/CarDescription'
+import RightCarDescription from '../components/RightCarDescription'
 
 function CarDetailsList() {
     const [setCarDetails, getSetCarDetails] = useState([])
@@ -38,7 +39,9 @@ function CarDetailsList() {
             </div>
 
             {/* right bar */}
-            <div className=''>right</div>
+            <div className=''>
+              <RightCarDescription car={setCarDetails}/>
+            </div>
           </div>
        </div>
     </div>
