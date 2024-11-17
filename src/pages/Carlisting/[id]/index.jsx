@@ -8,6 +8,7 @@ import Service from '@/shared/Service'
 import CarDetails from '../components'
 import CarDescription from '../components/CarDescription'
 import RightCarDescription from '../components/RightCarDescription'
+import Footer from '@/components/Footer'
 
 function CarDetailsList() {
     const [setCarDetails, getSetCarDetails] = useState([])
@@ -28,7 +29,7 @@ function CarDetailsList() {
   return (
     <div>
        <Header/>
-       <div className=''>
+       <div className='mb-32'>
           <div>
             <CarDetails car={setCarDetails}/>
           </div>
@@ -44,6 +45,7 @@ function CarDetailsList() {
             </div>
           </div>
        </div>
+       <Footer/>
     </div>
   )
 }
