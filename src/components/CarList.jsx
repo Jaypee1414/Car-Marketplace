@@ -32,7 +32,7 @@ function CarList() {
   }
   return (
     <div>
-      <h2 className="font-bold text-3xl text-center mt-10">Most Searched Car List</h2>
+      <h2 className="font-bold text-3xl text-center my-10">Most Searched Car List</h2>
         <ul className="mx-12 md:mx-28">
         <Carousel>
              <CarouselContent>

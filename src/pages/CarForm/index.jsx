@@ -119,6 +119,8 @@ function CarFrom() {
             ...formData,
             features: feartures,
             createdBy: user?.primaryEmailAddress?.emailAddress,
+            userName: user?.fullName,
+            userImageURL:user?.imageUrl,
             posted: `${month}-${day}-${year}`,
           })
           .returning({ id: carListing.id });

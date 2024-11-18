@@ -9,6 +9,7 @@ import CarDetails from '../components'
 import CarDescription from '../components/CarDescription'
 import RightCarDescription from '../components/RightCarDescription'
 import Footer from '@/components/Footer'
+import CarList from '@/components/CarList'
 
 function CarDetailsList() {
     const [setCarDetails, getSetCarDetails] = useState([])
@@ -44,6 +45,7 @@ function CarDetailsList() {
               <RightCarDescription car={setCarDetails}/>
             </div>
           </div>
+          <CarList/>
        </div>
        <Footer/>
     </div>
