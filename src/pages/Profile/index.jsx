@@ -1,6 +1,8 @@
 import Header from "@/components/Header"
 import MyListing from "./Component/MyListing"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Link } from "react-router-dom"
+import Inbox from "../Inbox"
 
 function Profile() {
   return (
@@ -14,7 +16,7 @@ function Profile() {
             <TabsTrigger value="profile" className="p-3">Profile </TabsTrigger>
           </TabsList>
           <TabsContent value="account"><MyListing/></TabsContent>
-          <TabsContent value="inbox">This is a Inbox Content</TabsContent>
+          <TabsContent value="inbox"><Inbox/></TabsContent>
           <TabsContent value="profile">This is your profile</TabsContent>
         </Tabs>
       </div>
