@@ -1,3 +1,4 @@
+import Service from '@/shared/Service';
 import { useUser } from '@clerk/clerk-react';
 import { App as SendbirdApp, SendBirdProvider } from '@sendbird/uikit-react';
 import '@sendbird/uikit-react/dist/index.css';
@@ -12,10 +13,15 @@ function App() {
 
   useEffect(()=>{
     if(user){
-      const setUserId = user?.primaryEmailAddress?.emailAddress?.split('@')[0]
-      setGetUserID(setUserId)
-      setGetUserProfile(user?.imageUrl)
-      setGetUserNickname(user?.fullName)
+      try {
+        const setUserId = user?.primaryEmailAddress?.emailAddress?.split('@')[0]
+        setGetUserID(setUserId)
+        setGetUserProfile(user?.imageUrl)
+        setGetUserNickname(user?.fullName)
+        // Service.registerInSendbird(setUserId, user?.fullName,user?.imageUrl)
+      } catch (error) {
+        console.log("No User Found")
+      }
     }
   },[user])
 

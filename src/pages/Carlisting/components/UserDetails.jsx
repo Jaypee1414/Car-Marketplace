@@ -1,9 +1,32 @@
 import { Button } from '@/components/ui/button'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { LuMessagesSquare } from "react-icons/lu";
+import Service from '@/shared/Service';
+import { useUser } from '@clerk/clerk-react';
 
 function UserDetails({car}) {
+  const { user } = useUser();
   console.log(car)
+
+  async function sendMessageToOwner(){  
+    try {
+      const setUserId = user?.primaryEmailAddress?.emailAddress?.split('@')[0]
+      const response = await Service.registerInSendbird(setUserId,user?.fullName,user?.imageUrl)
+      console.log(response)
+    } catch (error) {
+      console.log("User Login Failed")
+    }
+
+    try {
+      const setUserId = car?.createdBy?.split('@')[0]
+      const response = await Service.registerInSendbird(setUserId,car?.userName,car?.userImageURL)
+      console.log(response)
+    } catch (error) {
+      console.log("car Owner Details Login Failed")
+    }
+
+
+  }
   return (
     <div className='p-6'>
       <h2 className='text-lg md:text-xl  pb-4'>User details</h2>
@@ -22,7 +45,7 @@ function UserDetails({car}) {
           </p>
         </div>
         <div>
-        <Button className="bg-[#4f46e4] w-full my-3 flex flex-row gap-3"><LuMessagesSquare /> Message Owner</Button>
+        <Button className="bg-[#4f46e4] w-full my-3 flex flex-row gap-3" onClick={sendMessageToOwner}><LuMessagesSquare /> Message Owner</Button>
         </div>
       </div>
     </div>
