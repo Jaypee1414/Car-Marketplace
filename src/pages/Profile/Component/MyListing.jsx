@@ -38,7 +38,7 @@ function MyListing() {
   return (
     <div>
         <div className='flex justify-between items-center'>
-            <h2 className="font-bold text-4xl py-4">My Listing</h2>
+            <h2 className="font-bold text-xl md:text-4xl py-4">My Listing</h2>
             <Link to={'/Car-Form'}>
                 <Button>+ Add New</Button>
             </Link>

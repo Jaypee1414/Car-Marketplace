@@ -28,14 +28,26 @@ const FormResult = (res) => {
     return finalResult
 }
 
+const createGroupChannel = (user,title) => {
+    return axios.post(`https://api-${applicationID}.sendbird.com/v3/group_channels`,{
+        user_ids: user,
+        is_distinct: true,
+        name: title,
+    },{
+        headers:{
+            'Content-Type': 'application/json',
+            'Api-token': import.meta.env.VITE_SENDBIRD_API_TOKENS
+        }
+    })
+}
+
 const registerInSendbird = (userId,userName,userImageProfile ) => {
-    return  axios.post(`https://api-${applicationID}.sendbird.com/v3/users`,{
+    return axios.post(`https://api-${applicationID}.sendbird.com/v3/users`,{
         user_id: userId,
         nickname: userName,
         profile_url: userImageProfile,
         issue_access_token: false,
-    },
-    {
+    },{
     headers:{
         'Content-Type': 'application/json',
         'Api-token': import.meta.env.VITE_SENDBIRD_API_TOKENS
@@ -44,5 +56,6 @@ const registerInSendbird = (userId,userName,userImageProfile ) => {
 }
 export default {
     FormResult,
-    registerInSendbird
+    registerInSendbird,
+    createGroupChannel,
 }

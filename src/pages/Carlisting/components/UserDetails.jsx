@@ -3,28 +3,39 @@ import React, { useEffect } from 'react'
 import { LuMessagesSquare } from "react-icons/lu";
 import Service from '@/shared/Service';
 import { useUser } from '@clerk/clerk-react';
+import { useNavigate } from 'react-router-dom';
 
 function UserDetails({car}) {
   const { user } = useUser();
+  const navigation = useNavigate()
   console.log(car)
 
-  async function sendMessageToOwner(){  
+  async function sendMessageToOwner(){      
+    const userID = user?.primaryEmailAddress?.emailAddress?.split('@')[0]
+    const ownerUserID = car?.createdBy?.split('@')[0]
     try {
-      const setUserId = user?.primaryEmailAddress?.emailAddress?.split('@')[0]
-      const response = await Service.registerInSendbird(setUserId,user?.fullName,user?.imageUrl)
+      const response = await Service.registerInSendbird(userID,user?.fullName,user?.imageUrl)
       console.log(response)
     } catch (error) {
       console.log("User Login Failed")
     }
 
     try {
-      const setUserId = car?.createdBy?.split('@')[0]
-      const response = await Service.registerInSendbird(setUserId,car?.userName,car?.userImageURL)
+      const response = await Service.registerInSendbird(ownerUserID,car?.userName,car?.userImageURL)
       console.log(response)
     } catch (error) {
       console.log("car Owner Details Login Failed")
     }
 
+    try {
+      await Service.createGroupChannel([userID,ownerUserID],car?.listingTitle)
+      .then(resp => {
+        console.log("Channel Created")
+        navigation('/profile')
+      })
+    } catch (error) {
+      console.log("Created Channel Failed")
+    }
 
   }
   return (
