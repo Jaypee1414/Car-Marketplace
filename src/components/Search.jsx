@@ -17,9 +17,9 @@ function Search() {
     const [isPrice, setIsPrice] = useState()
 
    return (
-    <div className="p-7 bg-white rounded-md gap-10 items-center w-full px-5 flex flex-col md:mt-7 md:flex-row md:rounded-full md:w-max md:p-4">
+    <div className="p-7 bg-white rounded-md gap-1 md:gap-10 items-center md:px-5 flex pr-10 md:mr-0 flex-row md:mt-7 md:flex-row md:rounded-full w-full md:w-max md:p-4">
         <Select onValueChange={(value)=> setIsCar(value)}>
-        <SelectTrigger className="w-[180px] outline-none md:border-none shadow-none font-medium text-lg">
+        <SelectTrigger className="w-20 md:w-[180px] outline-none md:border-none shadow-none font-medium text-base md:text-lg">
             <SelectValue placeholder="Cars" />
         </SelectTrigger>
         <SelectContent>
@@ -32,7 +32,7 @@ function Search() {
         <Separator orientation="vertical" className=" hidden md:block"/>
 
         <Select onValueChange={(value)=> setIsModel(value)}>
-        <SelectTrigger className="w-[180px] outline-none md:border-none shadow-none font-medium text-lg">
+        <SelectTrigger className="w-20 md:w-[180px] outline-none md:border-none shadow-none font-medium text-base md:text-lg">
             <SelectValue placeholder="Car Makes" />
         </SelectTrigger>
         <SelectContent>
@@ -49,7 +49,7 @@ function Search() {
         <Separator orientation="vertical"  className=" hidden md:block"/>
         
         <Select onValueChange={(value)=> setIsPrice(value)}>
-        <SelectTrigger className="w-[180px] outline-none md:border-none shadow-none font-medium text-lg">
+        <SelectTrigger className="w-20 md:w-[180px] outline-none md:border-none shadow-none font-medium text-base md:text-lg">
             <SelectValue placeholder="Pricing" />
         </SelectTrigger>
         <SelectContent>
@@ -63,7 +63,7 @@ function Search() {
         </SelectContent>
         </Select>
         <Link to={`/search?cars=`+isCar+`&model=`+isModal+`&price=`+isPrice}>
-            <CiSearch  className="text-2xl cursor-pointer hidden md:block"/>
+            <CiSearch  className="text-xl md:text-2xl cursor-pointer block"/>
         </Link>
     </div>
   )
